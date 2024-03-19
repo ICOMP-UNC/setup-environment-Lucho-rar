@@ -20,3 +20,15 @@ file(GLOB_RECURSE SOURCES "src/*.c")
 
 #executable
 add_executable(${PROJECT_NAME} ${SOURCES})
+
+#libs
+add_subdirectory(lib/libstat) # lib static
+add_subdirectory(lib/libdyn) # lib dyn
+
+target_include_directories(${PROJECT_NAME} PUBLIC lib/libstat/include)
+target_include_directories(${PROJECT_NAME} PUBLIC lib/libdyn/include)
+
+target_link_libraries(${PROJECT_NAME}
+    StaticLibrary
+    DynLibrary
+)
