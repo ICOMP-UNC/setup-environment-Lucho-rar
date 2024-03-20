@@ -14,6 +14,9 @@ runs:
         echo $PROJECT_PATH
 
         # ToDo: Add documentation about 'tr' command and describe better this command
+        ## Cada comando busca los files de las extensiones que pasa como parametro. 
+        ### tr reemplaza los saltos de linea (separados asi por find) por espacios.
+
         SOURCE_FILES=$(find $PROJECT_PATH/src -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/include -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
         SOURCE_FILES+=$(find $PROJECT_PATH/lib -type f \( -name "*.cpp" -or -name "*.hpp" -or -name "*.h" -or -name "*.c" \) | tr "\n" " ")
@@ -21,6 +24,8 @@ runs:
         ERROR_FILE_FLAG=$PROJECT_PATH/clang-format_errors.txt
 
         # ToDo: Add documentation and describe better this command
+        ## formatea el style con clang-format de los Files buscados en el step anterior.
+
         CLANG_COMMAND=$(clang-format -i $SOURCE_FILES) > ${ERROR_FILE_FLAG}
 
         echo "Running: clang-format -i $SOURCE_FILES"
