@@ -15,7 +15,7 @@ runs:
         #### --output-on-failure: output en caso de que falle la prueba.
         ##### https://cmake.org/cmake/help/latest/manual/ctest.1.html
 
-        ctest --test-dir build/tests --output-on-failure
+        ctest --test-dir build/test --output-on-failure
 
         # ToDo: Add documentation and describe better this command
         ## Utilidad que genera reporte resumido de coverage del codigo.
