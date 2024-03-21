@@ -3,5 +3,5 @@
 
 int sumar_palos_dyn(int a, int b)
 {
-    return a + b;    
+    return a + b;
 }

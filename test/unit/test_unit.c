@@ -1,17 +1,21 @@
 #include "../../external/Unity/src/unity.h"
 #include "logic.h"
 
-void test_sum(){
-    TEST_ASSERT_EQUAL(2,sum(1,1));
+void test_sum()
+{
+    TEST_ASSERT_EQUAL(2, sum(1, 1));
 }
-void test_sum2(){
-    TEST_ASSERT_EQUAL(3,sum(2,1));
+void test_sum2()
+{
+    TEST_ASSERT_EQUAL(3, sum(2, 1));
 }
-void setUp(void) {
+void setUp(void)
+{
     // set stuff up here
 }
 
-void tearDown(void) {
+void tearDown(void)
+{
     // clean stuff up here
 }
 int main(void)
