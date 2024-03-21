@@ -1,0 +1,3 @@
+#pragma ONCE
+
+void greetings();

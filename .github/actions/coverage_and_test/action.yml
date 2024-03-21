@@ -1,0 +1,50 @@
+name: "Test and coverage check"
+description: "Test and coverage check with gcovr, pass if coverage is greater than 20%"
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Run coverage"
+      shell: bash
+      run: |
+        PROJECT_PATH=$(pwd)
+
+        # ToDo: Add documentation and describe better this command
+        ## ctest es el test-driver de CMake. Corre los tests y reporta resultados.
+        ### --testdir: especifica el directorio en donde estan los tests, generalmente asignado desde el CMakeLists  
+        #### --output-on-failure: output en caso de que falle la prueba.
+        ##### https://cmake.org/cmake/help/latest/manual/ctest.1.html
+
+        ctest --test-dir build/test --output-on-failure
+
+        # ToDo: Add documentation and describe better this command
+        ## Utilidad que genera reporte resumido de coverage del codigo.
+        ### -r es para especificar el path raiz .
+        #### https://gcovr.com/en/stable/index.html
+
+        gcovr -r $PROJECT_PATH . > $PROJECT_PATH/coverage.txt
+
+        echo "Runnig: gcovr -r $PROJECT_PATH ."
+
+        cat $PROJECT_PATH/coverage.txt
+
+        # Find the value of correct coverage
+        # ToDo: Add documentation and describe better this command
+        COVERAGE_RESULT=$(grep "TOTAL" $PROJECT_PATH/coverage.txt | awk '{print $NF}' | cut -d '%' -f 1)
+
+        # Coverage lines GT 20
+        if [ "$(echo "$COVERAGE_RESULT > 20" | bc)" -eq 1 ]; then
+            echo "Coverage is greater than 20%. Nice!"
+            exit 0
+        else
+            echo "Error: Coverage is less than or equal to 20%"
+            exit 1
+        fi
+
+    # Upload errors as an artifact, when failed
+    - uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: Tests or coverage errors!!!
+        path: $(pwd)/error_flag.txt
+        retention-days: 1
